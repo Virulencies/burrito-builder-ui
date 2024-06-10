@@ -1,12 +1,20 @@
 import { useState } from "react";
+import { postOrder } from "../../apiCalls";
 
-function OrderForm(props) {
+function OrderForm({ addNewOrder }) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    clearInputs();
+    if (name && ingredients.length) {
+      postOrder({ name, ingredients })
+        .then((newOrder) => {
+          addNewOrder(newOrder);
+          clearInputs();
+        })
+        .catch((err) => console.error("Error posting:", err));
+    }
   }
 
   function clearInputs() {
