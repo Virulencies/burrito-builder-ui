@@ -22,7 +22,9 @@ function OrderForm({ addNewOrder }) {
     setIngredients([]);
   }
 
-  function handleIngredientClick(ingredient) {
+  function handleIngredientClick(e, ingredient) {
+    e.preventDefault();
+    console.log("Ingredient clicked:", ingredient);
     setIngredients((prevIngredients) => [...prevIngredients, ingredient]);
   }
 
@@ -49,7 +51,7 @@ function OrderForm({ addNewOrder }) {
       <button
         key={ingredient}
         name={ingredient}
-        onClick={() => handleIngredientClick(ingredient)}
+        onClick={(e) => handleIngredientClick(e, ingredient)}
       >
         {ingredient}
       </button>
